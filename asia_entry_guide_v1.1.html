@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아시아 입국 신고서 가이드</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:#f0f4ff;min-height:100vh;color:#1a1a2e}
+.wrap{max-width:480px;margin:0 auto;padding:20px 16px 48px}
+.glass{background:rgba(255,255,255,0.72);border:1px solid rgba(255,255,255,0.9);border-radius:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.glass-soft{background:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.75);border-radius:12px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.topbar{display:flex;align-items:center;gap:11px;padding:12px 14px;margin-bottom:14px}
+.topbar-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#6366f1,#818cf8);display:flex;align-items:center;justify-content:center}
+.topbar-text{flex:1;min-width:0}
+.topbar-text h1{font-size:14px;font-weight:700;color:#1e1b4b;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-text p{font-size:10px;color:#9ca3af}
+.notice-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.notice{padding:12px 13px}
+.notice-head{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.notice-head span{font-size:11px;font-weight:700}
+.notice.blue .notice-head span{color:#1d4ed8}
+.notice.green .notice-head span{color:#047857}
+.notice p{font-size:10px;color:#6b7280;line-height:1.55}
+.notice-tag{display:inline-flex;align-items:center;gap:3px;margin-top:6px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px}
+.notice.blue .notice-tag{background:#dbeafe;color:#1e40af}
+.notice.green .notice-tag{background:#d1fae5;color:#065f46}
+.legend{display:flex;flex-wrap:wrap;gap:7px 13px;padding:11px 14px;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px;font-size:10px;color:#6b7280}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.filter-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+.filter-scroll::-webkit-scrollbar{display:none}
+.ftag{flex-shrink:0;padding:6px 15px;font-size:11px;font-weight:600;border:1.5px solid rgba(255,255,255,0.85);background:rgba(255,255,255,0.55);color:#6b7280;border-radius:20px;cursor:pointer;white-space:nowrap;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .15s}
+.ftag.active{background:linear-gradient(135deg,#6366f1,#818cf8);border-color:transparent;color:#fff}
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{overflow:hidden;transition:box-shadow .2s}
+.card.expanded{box-shadow:0 4px 24px rgba(99,102,241,0.13)}
+.card-head{display:flex;align-items:center;gap:11px;padding:14px 15px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.flag{font-size:28px;line-height:1;flex-shrink:0}
+.card-info{flex:1;min-width:0}
+.card-name{font-size:14px;font-weight:700;color:#1e1b4b;margin-bottom:5px}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:700;white-space:nowrap}
+.b-req{background:#d1fae5;color:#065f46}
+.b-opt{background:#dbeafe;color:#1e40af}
+.b-paper{background:#fef3c7;color:#92400e}
+.b-none{background:#f3f4f6;color:#4b5563}
+.b-novisa{background:#d1fae5;color:#065f46}
+.b-need{background:#fee2e2;color:#991b1b}
+.b-cond{background:#fce7f3;color:#9d174d}
+.chevron-icon{flex-shrink:0;transition:transform .22s}
+.card.expanded .chevron-icon{transform:rotate(180deg)}
+.card-meta{padding:0 15px 10px;display:flex;flex-direction:column;gap:6px}
+.meta-row{display:flex;align-items:flex-start;gap:8px}
+.meta-ico{flex-shrink:0;margin-top:1px;opacity:.45}
+.meta-lbl{font-size:10px;color:#9ca3af;min-width:32px;flex-shrink:0;padding-top:1px}
+.meta-val{font-size:11px;color:#374151;line-height:1.4;flex:1}
+.link-pill{display:flex;align-items:center;gap:7px;margin:0 15px 10px;padding:9px 12px;border-radius:11px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.18);text-decoration:none;cursor:pointer}
+.link-pill span{font-size:10px;color:#4f46e5;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.upills{display:flex;gap:5px;padding:0 15px 12px;flex-wrap:wrap}
+.upill{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.upill.blue{background:#dbeafe;color:#1e40af}
+.upill.green{background:#d1fae5;color:#065f46}
+.divider{height:1px;background:rgba(0,0,0,0.05);margin:0 15px}
+.guide-wrap{padding:13px 15px}
+.guide-title{font-size:11px;font-weight:700;color:#6b7280;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.step{display:flex;gap:9px;margin-bottom:9px}
+.snum{width:19px;height:19px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#eef2ff;color:#4f46e5;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.stext{font-size:11px;color:#6b7280;line-height:1.6;flex:1}
+.stext b{color:#1e1b4b;font-weight:700}
+.warn-box{margin:0 15px 8px;padding:10px 12px;border-radius:11px;background:#fffbeb;border:1px solid #fde68a;display:flex;gap:8px;align-items:flex-start}
+.warn-box span{font-size:10px;color:#78350f;line-height:1.55}
+.ban-wrap{margin:0 15px 12px;border-radius:12px;overflow:hidden;border:1px solid rgba(239,68,68,0.18)}
+.ban-header{background:rgba(239,68,68,0.06);padding:9px 12px;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.ban-title{font-size:11px;font-weight:700;color:#991b1b;flex:1}
+.ban-chevron{transition:transform .2s;flex-shrink:0}
+.ban-wrap.open .ban-chevron{transform:rotate(180deg)}
+.ban-body{display:none;padding:10px 12px;background:rgba(255,255,255,0.6)}
+.ban-wrap.open .ban-body{display:block}
+.ban-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:7px}
+.ban-item:last-child{margin-bottom:0}
+.ban-dot{width:5px;height:5px;border-radius:50%;background:#ef4444;flex-shrink:0;margin-top:5px}
+.ban-text{font-size:11px;color:#374151;line-height:1.55;flex:1}
+.ban-critical{margin-top:8px;padding:7px 10px;border-radius:9px;background:#fee2e2;border:1px solid rgba(239,68,68,0.25);font-size:10px;color:#991b1b;line-height:1.55;display:flex;gap:6px;align-items:flex-start}
+.ban-critical-ico{flex-shrink:0;margin-top:1px}
+.live-btn{margin:0 15px 14px;width:calc(100% - 30px);padding:11px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(129,140,248,0.1));border:1.5px solid rgba(99,102,241,0.25);color:#4f46e5;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .15s}
+.live-btn:hover{background:linear-gradient(135deg,rgba(99,102,241,0.18),rgba(129,140,248,0.18))}
+.live-btn:disabled{opacity:.45;cursor:not-allowed}
+.live-result{margin:0 15px 14px;padding:12px 13px;border-radius:12px;background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);display:none}
+.live-result.show{display:block}
+.lr-head{font-size:11px;font-weight:700;color:#059669;display:flex;align-items:center;gap:5px;margin-bottom:7px}
+.lr-body{font-size:11px;color:#6b7280;line-height:1.7;white-space:pre-wrap}
+.lr-ts{font-size:9px;color:#d1d5db;margin-top:7px;text-align:right}
+.card-detail{display:none}
+.card.expanded .card-detail{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 1s linear infinite;display:inline-block}
+.footer{margin-top:20px;padding:13px 15px;text-align:center;font-size:10px;color:#9ca3af;line-height:1.65}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar glass">
+  <div class="topbar-icon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  </div>
+  <div class="topbar-text">
+    <h1>아시아 입국 신고서 가이드</h1>
+    <p>2025~2026 · 한국 여권 기준 · 탭해서 가이드 확인</p>
+  </div>
+</div>
+
+<div class="notice-row">
+  <div class="notice glass blue">
+    <div class="notice-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      <span>신고 양식</span>
+    </div>
+    <p>국가 정책에 따라 비정기 변경. 출발 1~2주 전 재확인 필수.</p>
+    <span class="notice-tag">출발 전 체크</span>
+  </div>
+  <div class="notice glass green">
+    <div class="notice-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>반입 금지 품목 확인 주기</span>
+    </div>
+    <p>거의 변경 없음. 한 번 숙지하면 연 단위 적용 가능.</p>
+    <span class="notice-tag">연 1회 확인</span>
+  </div>
+</div>
+
+<div class="legend glass-soft">
+  <div class="li"><div class="dot" style="background:#10b981"></div>전자신고 필수</div>
+  <div class="li"><div class="dot" style="background:#6366f1"></div>전자신고 선택</div>
+  <div class="li"><div class="dot" style="background:#f59e0b"></div>종이 작성</div>
+  <div class="li"><div class="dot" style="background:#9ca3af"></div>신고서 불필요</div>
+  <div class="li"><div class="dot" style="background:#10b981"></div>무비자</div>
+  <div class="li"><div class="dot" style="background:#ec4899"></div>조건부</div>
+  <div class="li"><div class="dot" style="background:#ef4444"></div>비자필요</div>
+</div>
+
+<div class="filter-scroll">
+  <button class="ftag active" onclick="fc('all',this)">전체</button>
+  <button class="ftag" onclick="fc('동남아',this)">동남아</button>
+  <button class="ftag" onclick="fc('동아시아',this)">동아시아</button>
+  <button class="ftag" onclick="fc('required',this)">전자신고 필수</button>
+  <button class="ftag" onclick="fc('novisa',this)">무비자</button>
+</div>
+
+<div class="cards" id="cg"></div>
+
+<div class="footer">
+  본 가이드는 2025~2026년 기준으로 작성되었습니다.<br>
+  입국 규정은 수시 변경될 수 있으니 출발 전 각국 이민청 및 외교부 공식 사이트에서 반드시 재확인하세요.
+</div>
+</div>
+
+<script>
+// ================================================================
+// ⚠️  배포 전 이 URL을 본인 Cloudflare Workers URL로 교체하세요
+// 예시: https://my-proxy.myname.workers.dev
+// ================================================================
+const PROXY_URL = 'https://calm-voice-9bc7.edgar-meshugas.workers.dev';
+
+const IC={
+  mobile:`<svg class="meta-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  clock:`<svg class="meta-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  link:`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`,
+  ext:`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
+  refresh:`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>`,
+  shield:`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  chevron:`<svg class="chevron-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  banChevron:`<svg class="ban-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  list:`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+  warn:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  banWarn:`<svg class="ban-critical-ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  search:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  globe:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>`,
+  spinSvg:`<svg class="spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>`,
+  retry:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>`,
+};
+
+const D=[
+  {id:'th',r:'동남아',f:'🇹🇭',n:'태국',s:'Thailand',st:'required',sl:'전자신고 필수',v:'novisa',vl:'무비자 30일',m:'TDAC 웹사이트',t:'입국 3일 전 ~ 당일',url:'https://tdac.immigration.go.th',q:'태국 TDAC 입국신고서 2025 최신 변경사항 한국인',steps:[['사이트 접속','tdac.immigration.go.th 접속. 우측 상단 한국어 전환 가능'],['개인정보 입력','성명, 국적, 이메일, 여권번호 입력'],['여행정보 입력','항공편명, 여행 목적, 태국 내 체류지 주소 입력'],['제출','제출 후 이메일로 접수 확인 메일 수신'],['입국 시 제시','여권 + 이메일 확인서(QR코드)를 심사관에게 제시']],w:'2025년 5월 1일부터 모든 외국인 필수. 미작성 시 공항 별도 처리 절차 발생.',ban:['마약류 (소량이라도 사형 포함 중형)','전자담배·액상 — 소지만으로도 벌금 및 구금','불법 복제 DVD·CD, 음란물','총기·무기류, 폭죽','라이터 2개 초과 반입 불가'],banCritical:'마약 관련 처벌이 매우 엄격합니다. 한국에서 합법인 일부 감기약(에페드린 성분)도 현지에서 마약류로 분류될 수 있으니 약품 반입 전 성분 확인 필수.'},
+  {id:'my',r:'동남아',f:'🇲🇾',n:'말레이시아',s:'Malaysia',st:'required',sl:'전자신고 필수',v:'novisa',vl:'무비자 90일',m:'MDAC 웹사이트',t:'입국 3일 전 ~ 당일',url:'https://imigresen-online.imi.gov.my/mdac/main',q:'말레이시아 MDAC 입국신고서 2025 최신 변경사항 한국인',steps:[['사이트 접속','imigresen-online.imi.gov.my/mdac/main (무료. 유사 사기 사이트 주의)'],['국적 선택','한국 국적 확인 후 REGISTER 클릭'],['정보 입력','여권정보, 항공편, 체류지, 이메일 입력 후 SUBMIT'],['PIN 수신','이메일로 PIN 수신. PIN으로 신고서 다운로드 가능'],['QR코드 보관','QR 또는 출력본 입국 시 제시. 제출 후 수정 불가']],w:'2024년 1월부터 필수. 싱가포르 국적자·외교관 일부 면제.',ban:['마약류 (사형 포함 극형)','담배 200개비 초과 반입 불가 (세관신고 필요)','주류 1병 초과 반입 불가','공공 풍속을 해치는 인쇄물·영상물·CD','날카로운 무기류, 모조품'],banCritical:'이슬람 국가로 음란물·도박 관련 물품에 엄격. 마약 소지 시 사형이 적용될 수 있습니다.'},
+  {id:'sg',r:'동남아',f:'🇸🇬',n:'싱가포르',s:'Singapore',st:'required',sl:'전자신고 필수',v:'novisa',vl:'무비자 90일',m:'SGAC 웹 / MyICA 앱',t:'입국 3일 전부터',url:'https://eservices.ica.gov.sg/sgarrivalcard',q:'싱가포르 SGAC 입국신고서 2025 최신 한국인',steps:[['사이트 접속','eservices.ica.gov.sg/sgarrivalcard 또는 MyICA 앱'],['정보 입력','여권번호, 성명, 항공편명, 체류 기간, 숙소 주소 입력'],['건강 신고','건강 선언 항목 작성'],['제출','제출 후 확인 이메일 수신'],['입국 시','확인서 제시. e-채널(자동 게이트) 이용 가능']],w:'항공·해상·육로 모든 경로 필수. 영주권자·시민권자 제외.',ban:['일반 껌 (의료용·금연용 제외) — 벌금 최대 1만 SGD','전자담배·씹는담배 — 반입 및 소지 금지','담배 — 면세 없음, 전량 세관신고 필수 (미신고 시 1갑당 200 SGD 벌금)','마약류 — 사형 포함 극형','총기·폭죽, 해적 출판물·영상물'],banCritical:'세계에서 법 집행이 가장 엄격한 국가 중 하나. 마약 15g 이상 소지 시 사형이 의무 적용됩니다.'},
+  {id:'ph',r:'동남아',f:'🇵🇭',n:'필리핀',s:'Philippines',st:'required',sl:'전자신고 필수',v:'novisa',vl:'무비자 30일',m:'eTravel 웹사이트',t:'출발 72시간 전 ~ 당일',url:'https://etravel.gov.ph',q:'필리핀 eTravel 입국신고서 2025 최신 한국인',steps:[['사이트 접속','etravel.gov.ph 접속'],['정보 입력','여권정보, 항공편, 필리핀 내 주소, 귀국편 입력'],['건강 신고','건강 선언 항목 작성'],['QR코드 수령','제출 후 QR코드 생성 → 캡처 저장'],['출국 시에도 제출','입국 + 출국 시 각각 eTravel 신고 제출 필요']],w:'출국 시에도 동일 시스템으로 출국신고서 별도 제출 필요.',ban:['마약류 — 소지만으로도 종신형·사형','총기·탄약류 (정식 허가 없이 반입 불가)','음란물, 불법 복제품','라이터 2개 초과, 폭죽류','현지화 5만 페소 초과 반입 신고 필수'],banCritical:'마약 단속이 극도로 강화되어 있습니다. 처방약도 반드시 처방전 원본을 지참하세요.'},
+  {id:'id',r:'동남아',f:'🇮🇩',n:'인도네시아',s:'Indonesia',st:'paper',sl:'종이 작성',v:'novisa',vl:'무비자 30일',m:'기내 배부 종이 카드',t:'기내 또는 공항 도착 후',url:'',q:'인도네시아 입국신고서 2025 최신 한국인',steps:[['기내 수령','승무원 배부 종이 입국신고서(Arrival Card) 수령'],['영문 작성','성명, 여권번호, 항공편명, 목적, 체류지 영문 기재'],['세관신고서','면세 초과 시 세관신고서 별도 작성'],['심사대 제출','여권과 함께 입국 심사관에게 제출']],w:'발리 등 일부 공항은 온라인 세관신고(eCD) 권장. 출발 전 확인.',ban:['마약류 — 사형 포함 극형','음란물 (출판물·영상물)','현지화 1억 루피아 초과 반입 시 신고 필수','주류 1L 초과·담배 200개비 초과 세관신고','총기·무기류'],banCritical:'발리 등 관광지임에도 마약 처벌은 극히 엄격. 실제 외국인 사형 집행 사례가 있습니다.'},
+  {id:'vn',r:'동남아',f:'🇻🇳',n:'베트남',s:'Vietnam',st:'none',sl:'신고서 불필요',v:'cond',vl:'무비자 15일 / e-비자 90일',m:'신고서 없음 (TM6 폐지)',t:'해당 없음',url:'',q:'베트남 입국신고서 비자 2025 최신 한국인',steps:[['신고서 폐지','기내 배부 종이 신고서(TM6) 완전 폐지'],['비자 확인','한국인: 무비자(15일) 또는 e-비자(90일) 선택'],['e-비자 주의','e-비자는 반드시 출력 지참. 모바일 화면만으로 입국 거부 가능'],['체류지 준비','항공사 체크인 시 체류지 주소·귀국편 요구 가능']],w:'',ban:['마약류 — 사형 포함 극형','반정부적 출판물·선전물','총기·무기·폭발물','음란물','외화 5,000달러 초과 반입 시 신고 필수','담배 400개비·주류 1.5L 초과 세관신고'],banCritical:'베트남 당국은 외국인 마약 사범에게도 사형을 집행합니다. 처방약 반입 시 반드시 처방전 지참.'},
+  {id:'kh',r:'동남아',f:'🇰🇭',n:'캄보디아',s:'Cambodia',st:'paper',sl:'종이 작성',v:'novisa',vl:'무비자 30일',m:'기내/공항 종이 카드',t:'기내 또는 도착 후',url:'',q:'캄보디아 입국신고서 2025 최신 한국인',steps:[['종이 수령','기내 또는 공항에서 입국신고서 수령'],['영문 작성','성명, 국적, 여권번호, 목적, 체류 예정지 기재'],['제출','입국 심사대에서 여권과 함께 제출']],w:'비자 온 어라이벌(VOA) 이용 시 비자 신청서 별도 작성 필요.',ban:['마약류','총기·무기류','음란물','앙코르와트 등 문화재 무단 반출','외화 1만 달러 초과 반입 시 신고 필수'],banCritical:'시아누크빌 등 특정 지역은 외교부 여행 경보 지역. 현지 범죄 조직 관련 피해 사례 다수.'},
+  {id:'mm',r:'동남아',f:'🇲🇲',n:'미얀마',s:'Myanmar',st:'paper',sl:'종이 작성',v:'need',vl:'비자 필요',m:'기내/공항 종이 카드',t:'기내 또는 도착 후',url:'',q:'미얀마 입국신고서 비자 2025 최신 한국인',steps:[['종이 수령','기내 또는 공항 도착 후 종이 입국신고서 수령'],['영문 작성','여권정보, 직업, 체류지, 방문 목적 기재'],['제출','입국 심사 시 여권과 함께 제출']],w:'현재 정치 상황으로 입국 규정 수시 변경. 외교부 안전정보 반드시 확인.',ban:['마약류','반정부적 출판물·통신장비','위성전화 (군부 허가 없이 반입 불가)','총기·무기류','외화 1만 달러 초과 신고 필수'],banCritical:'현재 군사정권 통치 중. 외교부 여행 경보 발령 지역이 다수이며 정치적 발언에도 주의가 필요합니다.'},
+  {id:'la',r:'동남아',f:'🇱🇦',n:'라오스',s:'Laos',st:'paper',sl:'종이 작성',v:'novisa',vl:'무비자 30일',m:'기내/공항 종이 카드',t:'기내 또는 도착 후',url:'',q:'라오스 입국신고서 2025 최신 한국인',steps:[['종이 수령','기내 또는 공항에서 종이 입국신고서 수령'],['영문 기재','성명, 여권번호, 체류지, 방문 목적 기재'],['제출','여권과 함께 입국 심사대에 제출']],w:'',ban:['마약류 (양귀비 등 재배도 금지)','총기·무기류','불교 관련 물품 무단 반출','외화 2,000달러 초과 신고 필수','음란물'],banCritical:'마약 생산 지역(황금의 삼각지대)에 인접해 있어 마약 관련 단속이 매우 엄격합니다.'},
+  {id:'jp',r:'동아시아',f:'🇯🇵',n:'일본',s:'Japan',st:'optional',sl:'전자신고 선택',v:'novisa',vl:'무비자 90일',m:'Visit Japan Web',t:'출국 2주 전 ~ 당일',url:'https://vjw-lp.digital.go.jp',q:'일본 Visit Japan Web 입국신고서 2025 최신 한국인',steps:[['계정 생성','vjw-lp.digital.go.jp 접속. 이메일 인증으로 계정 생성 (앱 없음, 웹만)'],['개인정보 등록','여권 스캔 또는 수동 입력. 거주국·직업 입력'],['입국 예정 등록','여행명, 도착일, 항공편명, 숙소 우편번호(7자리) 입력. 가족 최대 10명'],['QR코드 발급','15단계 질문 응답 후 입국심사+세관신고 통합 QR 발급'],['QR 제시','심사대 여권+QR 제시. 세관 키오스크 동일 QR 재사용. 캡처 저장 권장']],w:'선택사항. 미등록 시 기내 배부 종이 신고서 작성. 선박 입국 시 사용 불가.',ban:['마약류 — 대마초 포함 소지·사용 엄금','해외 처방 감기약 일부 — 슈도에페드린·코데인 성분 반입 금지','총기·무기·도검류 (허가 없이 반입 불가)','위조품·불법 복제품','면세 한도 초과 주류·담배·향수','20만 엔 초과 물품 신고 필수'],banCritical:'판콜·콘택600·화이투벤 등 에페드린·슈도에페드린 성분 감기약은 일본 반입 금지. 여행 전 상비약 성분을 반드시 확인하세요.'},
+  {id:'cn',r:'동아시아',f:'🇨🇳',n:'중국',s:'China',st:'optional',sl:'전자신고 선택',v:'cond',vl:'무비자 30일 (2026.12까지)',m:'NIA 웹 / 앱 / 종이',t:'사전 또는 공항 도착 후',url:'https://s.nia.gov.cn/ArrivalCardFillingPC/entry-registation-home',q:'중국 NIA 입국신고서 전자 2025 최신 한국인 무비자',steps:[['온라인 등록','NIA 공식 웹 또는 NIA 12367 앱 설치 후 여권 업로드'],['여권 업로드','사진 페이지(MRZ 포함) 업로드 시 OCR 자동 입력'],['QR코드 발급','입력 완료 후 QR 생성 → 공항 심사대 스캔'],['공항 처리 가능','미등록 시 공항 키오스크 또는 심사대에서 처리 가능']],w:'2025년부터 온라인 전국 공항 전면 도입. 한국인 무비자 30일 (2026년 12월 31일까지 한시).',ban:['마약류','한국 감기약 일부 — 에페드린·슈도에페드린(판콜S·모드콜) 반입 금지, 적발 시 형사입건','총기·무기류','정치적 출판물·중국 비판 자료','20만 위안 이상 현금 반입 신고 필수','VPN 관련 장비 (현지 사용 불법)'],banCritical:'한국 판매 감기약이 중국 마약류 성분 함유 가능. 실제 형사입건 사례가 있습니다. 에페드린·슈도에페드린 성분 약품은 두고 가세요.'},
+  {id:'hk',r:'동아시아',f:'🇭🇰',n:'홍콩',s:'Hong Kong',st:'none',sl:'신고서 불필요',v:'novisa',vl:'무비자 90일',m:'없음',t:'해당 없음',url:'',q:'홍콩 입국 반입금지 2025 최신 한국인',steps:[['신고서 불필요','입국·출국 카드 작성·제출 의무 없음'],['여권만 제시','유효 여권 제시 후 입국 심사'],['e-채널','자주 방문 시 자동 출입국 게이트 등록 후 이용 가능']],w:'',ban:['마약류 — 사형 포함 중형','총기·무기류','담배 1인당 19개비 초과 시 세관신고','전자담배 — 반입·판매·소지 금지 (1심 최대 2년)','음란물','5만 홍콩달러 초과 현금 신고 필수'],banCritical:'2020년 이후 국가보안법 시행으로 정치적 표현물·시위 관련 물품 반입에 주의가 필요합니다.'},
+  {id:'tw',r:'동아시아',f:'🇹🇼',n:'대만',s:'Taiwan',st:'paper',sl:'종이 작성',v:'novisa',vl:'무비자 90일',m:'기내/공항 종이 카드',t:'기내 또는 도착 후',url:'',q:'대만 입국신고서 반입금지 2025 최신 한국인',steps:[['종이 수령','기내 승무원 배부 또는 공항 도착 후 수령'],['영문 작성','성명, 여권번호, 출생지, 직업, 방문 목적, 숙소 주소 기재'],['세관신고서','세관신고서 별도 작성 필요'],['제출','입국심사대에서 여권과 함께 제출']],w:'',ban:['마약류 (대마초 포함)','신선 과일·채소·식물류 — 검역 신고 필수','육류 (쇠고기·돼지고기 등 생육·가공육 포함)','총기·무기류','음란물','외화 및 신대만달러 10만 달러 초과 신고 필수'],banCritical:'한국산 돼지·소 육가공품(육포, 소시지, 통조림)은 반입 금지. 적발 시 최대 100만 신대만달러(약 4천만 원) 벌금.'},
+];
+
+const cache={};
+
+function bc(s){return s==='required'?'b-req':s==='optional'?'b-opt':s==='paper'?'b-paper':'b-none'}
+function vc(v){return v==='novisa'?'b-novisa':v==='need'?'b-need':'b-cond'}
+function toggleBan(id){document.getElementById('ban-'+id).classList.toggle('open')}
+
+async function live(id,q,btn){
+  if(cache[id]){show(id,cache[id]);return}
+  btn.innerHTML=IC.spinSvg+' 검색 중...';btn.disabled=true;
+  const prompt='여행 정보 전문가로서 웹 검색 후 한국어로 간결하게 요약해주세요.\n검색어: '+q+'\n\n항목별 1~2문장:\n1. 입국 신고서 현황 및 최근 변경\n2. 한국인 비자 조건\n3. 최신 주의사항 (없으면 없음)\n4. 정보 기준일\n\n총 8줄 이내.';
+  try{
+    // API Key 없이 프록시 서버로 요청
+    const r=await fetch(PROXY_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await r.json();
+    let txt='';
+    if(data.content)for(const b of data.content)if(b.type==='text')txt+=b.text;
+    if(!txt)txt='정보를 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    cache[id]=txt;show(id,txt);
+  }catch(e){
+    show(id,'검색 중 오류가 발생했습니다. 네트워크 연결을 확인해 주세요.');
+  }finally{
+    btn.innerHTML=IC.retry+' 다시 검색';btn.disabled=false;
+  }
+}
+
+function show(id,txt){
+  const el=document.getElementById('lr-'+id);
+  const now=new Date();
+  const ts=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+' 조회';
+  el.innerHTML='<div class="lr-head">'+IC.globe+' 웹 검색 최신 정보</div><div class="lr-body">'+txt.replace(/\n/g,'<br>')+'</div><div class="lr-ts">'+ts+'</div>';
+  el.classList.add('show');
+}
+
+function toggle(id){document.getElementById('c-'+id).classList.toggle('expanded')}
+function fc(type,btn){
+  document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  let list=D;
+  if(type==='동남아')list=D.filter(c=>c.r==='동남아');
+  else if(type==='동아시아')list=D.filter(c=>c.r==='동아시아');
+  else if(type==='required')list=D.filter(c=>c.st==='required');
+  else if(type==='novisa')list=D.filter(c=>c.v==='novisa');
+  render(list);
+}
+
+function render(list){
+  document.getElementById('cg').innerHTML=list.map(c=>`
+<div class="card glass" id="c-${c.id}">
+  <div class="card-head" onclick="toggle('${c.id}')">
+    <div class="flag">${c.f}</div>
+    <div class="card-info">
+      <div class="card-name">${c.n} <span style="font-size:10px;color:#9ca3af;font-weight:400">${c.s} · ${c.r}</span></div>
+      <div class="badges"><span class="badge ${bc(c.st)}">${c.sl}</span><span class="badge ${vc(c.v)}">${c.vl}</span></div>
+    </div>
+    ${IC.chevron}
+  </div>
+  <div class="card-meta">
+    <div class="meta-row">${IC.mobile}<span class="meta-lbl">방법</span><span class="meta-val">${c.m}</span></div>
+    <div class="meta-row">${IC.clock}<span class="meta-lbl">시기</span><span class="meta-val">${c.t}</span></div>
+  </div>
+  ${c.url?`<a class="link-pill" href="${c.url}" target="_blank" onclick="event.stopPropagation()">${IC.link}<span>${c.url}</span>${IC.ext}</a>`:''}
+  <div class="upills">
+    <div class="upill blue">${IC.refresh} 신고서 — 출발 1~2주 전 체크</div>
+    <div class="upill green">${IC.shield} 반입금지 — 연 1회</div>
+  </div>
+  <div class="card-detail">
+    <div class="divider"></div>
+    <div class="guide-wrap">
+      <div class="guide-title">${IC.list} 작성 가이드</div>
+      ${c.steps.map((s,i)=>`<div class="step"><div class="snum">${i+1}</div><div class="stext"><b>${s[0]}</b> — ${s[1]}</div></div>`).join('')}
+    </div>
+    ${c.w?`<div class="warn-box">${IC.warn}<span>${c.w}</span></div>`:''}
+    <div class="ban-wrap" id="ban-${c.id}">
+      <div class="ban-header" onclick="toggleBan('${c.id}')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        <span class="ban-title">반입 금지 물품</span>
+        ${IC.banChevron}
+      </div>
+      <div class="ban-body">
+        ${c.ban.map(b=>`<div class="ban-item"><div class="ban-dot"></div><div class="ban-text">${b}</div></div>`).join('')}
+        ${c.banCritical?`<div class="ban-critical">${IC.banWarn}<span>${c.banCritical}</span></div>`:''}
+      </div>
+    </div>
+    <button class="live-btn" id="btn-${c.id}" onclick="live('${c.id}',\`${c.q}\`,this)">
+      ${IC.search} 웹에서 최신 입국 정보 검색
+    </button>
+    <div class="live-result" id="lr-${c.id}"></div>
+  </div>
+</div>`).join('');
+}
+
+render(D);
+</script>
+</body>
+</html>
